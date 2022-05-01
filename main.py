@@ -4,6 +4,44 @@ import random
 import item as item
 
 sl = []
+category = []
+fish = []
+meat = []
+vego = []
+chicken = []
+
+try:
+    f = open("fish.txt", "r")
+    for line in f:
+        fish.append(line.strip())
+    f.close()
+except:
+    pass
+
+try:
+    f = open("meat.txt", "r")
+    for line in f:
+        meat.append(line.strip())
+    f.close()
+except:
+    pass
+
+try:
+    f = open("vege.txt", "r")
+    for line in f:
+        vego.append(line.strip())
+    f.close()
+except:
+    pass
+
+try:
+    f = open("chicken.txt", "r")
+    for line in f:
+        chicken.append(line.strip())
+    f.close()
+except:
+    pass
+
 try:
     f = open("shopping2.txt", "r")
     for line in f:
@@ -47,7 +85,7 @@ def addScreen():
     global sl
     os.system('cls')  # for linux 'clear'
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print("     SHOPPING LIST    ")
+    print("      LIST    ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print("\n\nYour list contains", len(sl), "items.\n")
     print("Please choose from the following options:\n")
@@ -77,11 +115,13 @@ def addCategory():
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print("     Food Category    ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print("\n\nYour list contains", len(sl), "items.\n")
+    print("\n\nYour list contains", len(sl+chicken+fish+meat), "items.\n")
     print("Please choose from the following options:\n")
     print("(f)ish food ")
     print("(m)eat food ")
     print("(v)egetarian food ")
+    print("(c)hicken food ")
+    print("(n)ew Category")
     print("(m)ain menu")
     choice = input("\nchoice: ")
     if len(choice) > 0:
@@ -90,13 +130,32 @@ def addCategory():
         elif choice.lower()[0] == "m":
             addMeat()
         elif choice.lower()[0] == "v":
-            addVege()
+            addVego()
+        elif choice.lower()[0] == "c":
+            addChicken()
         elif choice.lower()[0] == "m":
             mainScreen()
+        elif choice.lower()[0] == "n":
+            newCat()
         else:
             mainScreen()
     else:
         mainScreen()
+
+def newCat():
+    global sl
+    os.system('cls')  # for linux 'clear'
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("     New Category    ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("\n\nYour list contains", len(sl), "items.\n")
+    print("Please enter the name of the new category:\n")
+    f = open(input()+ ".txt", mode="w")
+    print("Item added :-)")
+    time.sleep(2)
+    f.close
+    addCategory()
+
 
 
 def addFish():
@@ -110,13 +169,14 @@ def addFish():
     print("Press ENTER to return to the main menu.\n")
     item = input("\nItem: ")
     if len(item) > 0:
-        sl.append(item)
+        fish.append(item)
         print("Item added :-)")
-        saveList()
+        saveFish()
         time.sleep(1)
         addFish()
     else:
         mainScreen()
+
 
 def addMeat():
     global sl
@@ -126,15 +186,16 @@ def addMeat():
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     item = input("\nItem: ")
     if len(item) > 0:
-        sl.append(item)
+        meat.append(item)
         print("Item added :-)")
-        saveList()
+        saveMeat()
         time.sleep(1)
         addMeat()
     else:
         mainScreen()
 
-def addVege():
+
+def addVego():
     global sl
     os.system('cls')  # for linux 'clear'
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -142,23 +203,131 @@ def addVege():
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     item = input("\nItem: ")
     if len(item) > 0:
-        sl.append(item)
+        vego.append(item)
         print("Item added :-)")
-        saveList()
+        saveVego()
         time.sleep(1)
-        addVege()
+        addVego()
     else:
         mainScreen()
 
+def addChicken():
+    global sl
+    os.system('cls')  # for linux 'clear'
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("     add Chicken dish    ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("\n\n")
+    print("Please enter the name of the item that you want to add.")
+    print("Press ENTER to return to the main menu.\n")
+    item = input("\nItem: ")
+    if len(item) > 0:
+        chicken.append(item)
+        print("Item added :-)")
+        saveChicken()
+        time.sleep(1)
+        addChicken()
+    else:
+        mainScreen()
 
 
 def viewScreen():
     os.system('cls')  # for linux 'clear'
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print("     VIEW SCREEN    ")
+    print("    View LIST    ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("\n\nYour list contains", len(sl), "items.\n")
+    print("Please choose from the following options:\n")
+    print("(f) to see your Fish list")
+    print("(m) to see your Meat list")
+    print("(v) to see your Vego list")
+    print("(c) to see your Chicken list")
+    print("(q)uit the program")
+
+    choice = input("\nchoice: ")
+    if len(choice) > 0:
+        if choice.lower()[0] == "f":
+            viewFish()
+        elif choice.lower()[0] == "m":
+            viewMeat()
+        elif choice.lower()[0] == "v":
+            viewvego()
+        elif choice.lower()[0] == "c":
+            viewChicken()
+        elif choice.lower()[0] == "q":
+            sys.exit()
+        else:
+            mainScreen()
+    else:
+        mainScreen()
+
+
+def viewCat():
+    os.system('cls')  # for linux 'clear'
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("     VIEW Category    ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print("\n\n")
-    for item in sl:
+    for item in category:
+        print(item)
+
+    print("\n\n")
+    print("Press enter to return to the main menu")
+    input()
+    mainScreen()
+
+
+def viewFish():
+    os.system('cls')  # for linux 'clear'
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("     VIEW Fish category    ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("\n\n")
+    for item in fish:
+        print(item)
+
+    print("\n\n")
+    print("Press enter to return to the main menu")
+    input()
+    mainScreen()
+
+
+def viewMeat():
+    os.system('cls')  # for linux 'clear'
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("     VIEW Meat category    ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("\n\n")
+    for item in meat:
+        print(item)
+
+    print("\n\n")
+    print("Press enter to return to the main menu")
+    input()
+    mainScreen()
+
+
+def viewvego():
+    os.system('cls')  # for linux 'clear'a
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("     VIEW Vego category    ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("\n\n")
+    for item in vego:
+        print(item)
+
+    print("\n\n")
+    print("Press enter to return to the main menu")
+    input()
+    mainScreen()
+
+def viewChicken():
+    os.system('cls')  # for linux 'clear'a
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("     VIEW Chicken category    ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("\n\n")
+    for item in chicken:
         print(item)
 
     print("\n\n")
@@ -174,7 +343,7 @@ def deleteScreen():
     print("     DELETE SCREEN    ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     count = 0
-    for item in sl:
+    for item in sl+meat+fish+vego:
         print(count, " - ", item)
         count = count + 1
     print("What number to delete?")
@@ -201,19 +370,43 @@ def saveList():
     f.close()
 
 
+def saveCategory():
+    f = open("categories.txt", "w")
+    for item in category:
+        f.write(item + "\n")
+    f.close()
+
+
+def saveFish():
+    f = open("fish.txt", "w")
+    for item in fish:
+        f.write(item + "\n")
+    f.close()
+
+
+def saveMeat():
+    f = open("meat.txt", "w")
+    for item in meat:
+        f.write(item + "\n")
+    f.close()
+
+
+def saveVego():
+    f = open("vege.txt", "w")
+    for item in vego:
+        f.write(item + "\n")
+    f.close()
+
+def saveChicken():
+    f = open("chicken.txt", "w")
+    for item in vego:
+        f.write(item + "\n")
+    f.close()
+
+
 def randomWeek():
+    categories = ['Fish', 'Chicken', 'Meat', 'Vegetarian']
 
-    categories = ['fisk', 'Kyckling', 'kött', 'vegetariskt']
-
-    category = [
-        ['Lax & potatis', 'Fiskpinnar & pommes',
-         'Torsk & koktpotatis', 'Fiskgratäng', 'Fisksoppa'],
-        ['Tikimasala & Ris', 'Kyckling grönpesto & pasta', 'Kycklingfile & klyftpotatis'],
-        ['Korv & Makaroner', 'Köttbullar & Potatismos', 'ChiliConCarne',
-         'Spagetti & köttfärsås', 'Lasange', 'Korvstroganoff', 'köttfärs Rödpesto & Ris'],
-        ['Falafel', 'Mjadara', 'Spenatsoppa', 'Makhlota',
-         'Kräftsoppa', 'Ärtsoppa', 'Bakpotatis']
-    ]
 
     week_days = ['Monday ', 'Tuesday ', 'Wednesday ',
                  'Thursday ', 'Friday ', 'Saturday ', 'Sunday ']
@@ -222,40 +415,35 @@ def randomWeek():
         prevday = day
 
         print(prevday)
-        catrandom = random.choice(categories)
-        todaycat = catrandom
+        categoryrandom = random.choice(categories)
 
-        checkday = prevday == catrandom
-
-        if catrandom == 'fisk':
-            cat = category[0]
-            prevday == catrandom
+        if categoryrandom == 'Fish':
+            cat = fish
+            prevday == categoryrandom
             n = random.randint(0, len(cat) - 1)
             meal = cat[n]
-            print('Fisk: ' + str(meal))
+            print('Fish: ' + str(meal))
 
-        if catrandom == 'Kyckling':
-            cat = category[1]
-            prevday == catrandom
+        if categoryrandom == 'Chicken':
+            cat = chicken
+            prevday == categoryrandom
             n = random.randint(0, len(cat) - 1)
             meal = cat[n]
-            print('Kyckling: ' + str(meal))
+            print('Chicken: ' + str(meal))
 
-        if catrandom == 'kött':
-            cat = category[2]
-            prevday == catrandom
+        if categoryrandom == 'Meat':
+            cat = meat
+            prevday == categoryrandom
             n = random.randint(0, len(cat) - 1)
             meal = cat[n]
-            print('Kött: ' + str(meal))
+            print('Meat: ' + str(meal))
 
-        if catrandom == 'vegetariskt':
-            cat = category[3]
-            prevday == catrandom
+        if categoryrandom == 'Vegetarian':
+            cat = vego
+            prevday == categoryrandom
             n = random.randint(0, len(cat) - 1)
             meal = cat[n]
-            print('Vegetarisk: ' + str(meal))
+            print('Vego: ' + str(meal))
 
 
 mainScreen()
-
-
