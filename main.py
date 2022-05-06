@@ -1,7 +1,6 @@
 import os, sys, time
 import random
 
-import item as item
 
 sl = []
 category = []
@@ -54,7 +53,7 @@ except:
 def mainScreen():
     os.system('cls')  # for linux 'clear'
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print("     SHOPPING LIST    ")
+    print("     Weekly foods!    ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print("\n\nYour list contains", len(sl), "items.\n")
     print("Please choose from the following options:\n")
